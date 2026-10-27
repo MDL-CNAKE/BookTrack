@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+const env = require('./env.config');
+
+// Connessione a MongoDB: se fallisce il server non deve partire.
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(env.mongodbUri);
+    console.log(`MongoDB connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`MongoDB connection error: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
